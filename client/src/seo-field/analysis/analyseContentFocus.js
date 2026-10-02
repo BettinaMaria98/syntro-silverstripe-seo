@@ -6,7 +6,14 @@ function analyseContentFocus(dom, keyword, t) { // eslint-disable-line no-unused
     };
   }
 
-  const bodyText = dom.querySelector('body').textContent.replace(/^( *)$/gm, '').replace(/^( +)/gm, ' ').replace(/(\r\n|\n|\r)/gm, '');
+  // Work on a clone so nav/footer boilerplate (menus, footer links, etc.)
+  // can't produce false-positive keyword matches, without mutating the
+  // shared dom that the other analyses further down the pipeline still
+  // rely on.
+  const content = dom.querySelector('body').cloneNode(true);
+  content.querySelectorAll('nav').forEach((item) => { item.remove(); });
+  content.querySelectorAll('footer').forEach((item) => { item.remove(); });
+  const bodyText = content.textContent.replace(/^( *)$/gm, '').replace(/^( +)/gm, ' ').replace(/(\r\n|\n|\r)/gm, '');
 
   const re = new RegExp(keyword, 'gi');
   const matches = bodyText.match(re);

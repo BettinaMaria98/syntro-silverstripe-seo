@@ -1,7 +1,13 @@
 const GOOGLE_OPT_CONTENT_LENGTH = 300;
 
 function analyseContentWordCount(dom, keyword, t) { // eslint-disable-line no-unused-vars
-  const bodyText = dom.querySelector('body').textContent.replace(/^( *)$/gm, '').replace(/^( +)/gm, ' ').replace(/(\r\n|\n|\r)/gm, '');
+  // Work on a clone so nav/footer boilerplate (menus, footer links, etc.)
+  // doesn't inflate the word count, without mutating the shared dom that
+  // the other analyses further down the pipeline still rely on.
+  const content = dom.querySelector('body').cloneNode(true);
+  content.querySelectorAll('nav').forEach((item) => { item.remove(); });
+  content.querySelectorAll('footer').forEach((item) => { item.remove(); });
+  const bodyText = content.textContent.replace(/^( *)$/gm, '').replace(/^( +)/gm, ' ').replace(/(\r\n|\n|\r)/gm, '');
   const wordCount = (bodyText.length && bodyText.split(/\s+\b/).length) || 0;
 
   if (wordCount > GOOGLE_OPT_CONTENT_LENGTH) {
