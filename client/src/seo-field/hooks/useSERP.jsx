@@ -7,13 +7,25 @@ const GOOGLE_MAX_TITLE_LENGTH = 70;
 /**
  * breadcrumbsFromPath - returns the breadcrumbs from the URL & Link as an array
  *
+ * `link` is sometimes a full absolute URL (e.g. "https://example.com/about")
+ * rather than a relative path, so we resolve it against `baseUrl` and only
+ * use the resulting `pathname` — otherwise the scheme/host would get split
+ * into their own breadcrumb segments too.
+ *
  * @param  {string} baseUrl the base url
- * @param  {string} link    the link
+ * @param  {string} link    the link (relative path or full absolute URL)
  * @return {array}          the breadcrumbs as array of strings
  */
 function breadcrumbsFromPath(baseUrl, link) {
   const breadcrumbs = [baseUrl];
-  const path = link.split('/');
+  let pathname = link;
+  try {
+    pathname = new URL(link, baseUrl).pathname;
+  } catch (e) {
+    // link wasn't parseable as a URL (shouldn't normally happen) — fall
+    // back to treating it as a plain path.
+  }
+  const path = pathname.split('/');
   for (let i = 0; i < path.length; i += 1) {
     if (path[i] !== '') {
       breadcrumbs.push(path[i]);
