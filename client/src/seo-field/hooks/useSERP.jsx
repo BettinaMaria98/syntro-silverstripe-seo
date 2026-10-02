@@ -67,8 +67,8 @@ function snippetFromPage(page, keyword) {
   let content = null;
   const metadesc = dom.querySelector('meta[name="description"]');
   if (metadesc) {
-    content = metadesc.content.toLowerCase();
-    if (keyword && keyword !== '' && content.indexOf(keyword.toLowerCase()) < 0) {
+    content = metadesc.content;
+    if (keyword && keyword !== '' && content.toLowerCase().indexOf(keyword.toLowerCase()) < 0) {
       const bodyContent = dom.querySelector('body').innerText.replace(/^( *)$/gm, '').replace(/^( +)/gm, ' ').replace(/(\r\n|\n|\r)/gm, '');
       if (bodyContent.toLowerCase().indexOf(keyword.toLowerCase()) >= 0) {
         content = bodyContent;
