@@ -19,7 +19,7 @@
   },
   "analyseH1Title": {
     "MANYTITLES": "Die Seite hat mehrere H1-Titel. Jede Seite sollte nur einen, einzigartigen H1-Titel besitzen.",
-    "NOKEYWORD": "Der H1-Titel enthält das Fokus-Schslüselwort nicht.",
+    "NOKEYWORD": "Der H1-Titel enthält das Fokus-Schlüsselwort nicht.",
     "NOTITLE": "Die Seite hat keinen H1-Titel. Jede Seite sollte einen eigenen, einzigartigen H1-Titel besitzen.",
     "SUCCESS": "Der H1-Titel ist perfekt!"
   },

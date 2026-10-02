@@ -69,7 +69,7 @@ de:
       Die Seite hat keinen H1-Titel. Jede Seite sollte einen eigenen,
       einzigartigen H1-Titel besitzen.
     FOCUS_NOT_FOUND: >
-      Der H1-Titel enthält das Fokus-Schslüselwort nicht.
+      Der H1-Titel enthält das Fokus-Schlüsselwort nicht.
     MULTIPLE: >
       Die Seite hat mehrere H1-Titel. Jede Seite sollte nur einen, einzigartigen
       H1-Titel besitzen
