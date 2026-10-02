@@ -31,3 +31,4 @@ well this specific page is optimized.
 ## Documentation
 * [How to edit the title](docs/en/01_Title.md)
 * [How to include DataObjects rendered as pages](docs/en/02_DOAP.md)
+* [AI Suggest tab](docs/en/03_AITab.md)

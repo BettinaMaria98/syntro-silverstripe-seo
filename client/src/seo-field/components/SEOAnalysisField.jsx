@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
  * Inner component so we can read DOMContext for the AI tab.
  */
 const SEOAnalysisFieldInner = ({
-  link, rootUrl, keyword, pageId, currentTitle, openTab, handleTabClick, t,
+  link, rootUrl, keyword, pageId, currentTitle, showAiTab, openTab, handleTabClick, t,
 }) => (
   <>
     <Nav tabs>
@@ -31,6 +31,7 @@ const SEOAnalysisFieldInner = ({
           {t('tabs.SERP', 'SERP')}
         </NavLink>
       </NavItem>
+      {showAiTab && (
       <NavItem>
         <NavLink
           className={classnames({ active: openTab === 'ai' })}
@@ -39,10 +40,11 @@ const SEOAnalysisFieldInner = ({
           {t('tabs.AI', 'AI Suggest')}
         </NavLink>
       </NavItem>
+      )}
     </Nav>
     {openTab === '1' && <Analysis link={link} keyword={keyword} rootUrl={rootUrl} />}
     {openTab === '3' && <SERP link={link} keyword={keyword} rootUrl={rootUrl} />}
-    {openTab === 'ai' && (
+    {showAiTab && openTab === 'ai' && (
     <AI pageId={pageId} currentTitle={currentTitle} />
     )}
   </>
@@ -50,7 +52,7 @@ const SEOAnalysisFieldInner = ({
 
 const SEOAnalysisField = (props) => {
   const {
-    link, rootUrl, keyword, pageId, currentTitle,
+    link, rootUrl, keyword, pageId, currentTitle, showAiTab,
   } = props;
   const [openTab, setOpenTab] = useState('1');
   const { t } = useTranslation();
@@ -65,6 +67,7 @@ const SEOAnalysisField = (props) => {
           keyword={keyword}
           pageId={pageId}
           currentTitle={currentTitle}
+          showAiTab={showAiTab}
           openTab={openTab}
           handleTabClick={handleTabClick}
           t={t}
@@ -80,6 +83,7 @@ SEOAnalysisField.defaultProps = {
   keyword: '',
   pageId: 0,
   currentTitle: '',
+  showAiTab: true,
   data: {},
 };
 
@@ -89,12 +93,14 @@ SEOAnalysisField.propTypes = {
   keyword: PropTypes.string,
   pageId: PropTypes.number,
   currentTitle: PropTypes.string,
+  showAiTab: PropTypes.bool,
   data: PropTypes.shape({}),
 };
 
 SEOAnalysisFieldInner.defaultProps = {
   currentTitle: '',
   pageId: 0,
+  showAiTab: true,
 };
 
 SEOAnalysisFieldInner.propTypes = {
@@ -103,6 +109,7 @@ SEOAnalysisFieldInner.propTypes = {
   keyword: PropTypes.string.isRequired,
   pageId: PropTypes.number,
   currentTitle: PropTypes.string,
+  showAiTab: PropTypes.bool,
   openTab: PropTypes.string.isRequired,
   handleTabClick: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,

@@ -36,6 +36,15 @@ class SEOAnalysisField extends FormField
     private ?string $currentTitle = null;
 
     /**
+     * Set to false to hide the "AI Suggest" tab entirely (e.g. while no
+     * backend endpoint is wired up for it).
+     *
+     * @config
+     * @var bool
+     */
+    private static $show_ai_tab = true;
+
+    /**
      * __construct
      *
      * @param  string $name    the name of the field
@@ -78,6 +87,7 @@ class SEOAnalysisField extends FormField
         $state['rootUrl'] = Director::absoluteBaseURL();
         $state['pageId'] = $this->pageId ?? 0;
         $state['currentTitle'] = $this->currentTitle ?? '';
+        $state['showAiTab'] = (bool) $this->config()->get('show_ai_tab');
 
         return $state;
     }
