@@ -57,6 +57,10 @@ i18n
   .init({
     fallbackLng: 'en-US',
     debug: false,
+    // Region-qualified locales (e.g. de-AT, en-GB) are reduced to their
+    // language-only code before a translation file is requested, so we
+    // never try to load a file we don't ship (we only have de, en, en-US).
+    load: 'languageOnly',
     whitelist: [
       'en',
       'de',
